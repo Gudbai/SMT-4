@@ -33,5 +33,5 @@ let lima = "5";
 let limo = 5;
 
 // Identik - Sama time dan isi
-console.log(lima === limo)
+console.log(lima === limo);
 
