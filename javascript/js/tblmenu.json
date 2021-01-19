@@ -1,0 +1,29 @@
+[
+    {
+        "idmenu": 1,
+        "idkategori": 1,
+        "menu": "Ayam Goreng",
+        "harga": 5000,
+        "warna": ["pedas", "manis"],
+        "stok": true,
+        "keterangan": null
+    },
+    {
+        "idmenu": 2,
+        "idkategori": 1,
+        "menu": "Ayam Bakar",
+        "harga": 5000,
+        "rasa": ["pedas", "manis"],
+        "stok": true,
+        "keterangan": null
+    },
+    {
+        "idmenu": 3,
+        "idkategori": 2,
+        "menu": "Es Teh",
+        "harga": 3000,
+        "rasa": ["tawar", "manis"],
+        "stok": true,
+        "keterangan": null
+    }
+]
