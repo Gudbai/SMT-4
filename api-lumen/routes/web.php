@@ -21,9 +21,10 @@ $router->post('api/register', ['uses' => 'LoginController@register']);
 
 $router->get('api/login', ['uses' => 'LoginController@login']);
 
-$router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($router) {
-    $router->get('kategori', ['uses' => 'KategoriController@index']);
+$router->get('kategori', ['uses' => 'KategoriController@index']);
 
+$router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($router) {
+    
     $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
 
     $router->delete('kategori/{id}', ['uses' => 'KategoriController@destroy']);
