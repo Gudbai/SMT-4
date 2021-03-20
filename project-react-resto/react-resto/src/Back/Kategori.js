@@ -7,6 +7,7 @@ const Kategori = () => {
 	const [pesan, setPesan] = useState('');
 	const [idkategori, setIdkategori] = useState('');
 	const [pilihan, setPilihan] = useState(true);
+	
 	const { register, handleSubmit, reset, errors, setValue } = useForm();
 
 	const [isi] = useGet('/kategori');
