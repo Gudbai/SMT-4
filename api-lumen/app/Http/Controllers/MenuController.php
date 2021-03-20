@@ -131,10 +131,8 @@ class MenuController extends Controller
                 'harga' => $request->input('harga')
             ];
         }
-
-        return response()->json($data);
         
-        $menu = Menu::where('idmenu', 'id')->update($data);
+        $menu = Menu::where('idmenu', $id)->update($data);
 
         if ($menu) {
             return response()->json([

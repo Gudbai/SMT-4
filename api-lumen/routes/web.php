@@ -33,6 +33,7 @@ $router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($ro
 
     $router->post('kategori', ['uses' => 'KategoriController@create']);
 
+    //---------------------------------------------------------
 
     $router->get('pelanggan', ['uses' => 'PelangganController@index']);
 
@@ -44,6 +45,7 @@ $router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($ro
 
     $router->put('pelanggan/{id}', ['uses' => 'PelangganController@update']);
     
+    //---------------------------------------------------------
 
     $router->post('menu', ['uses' => 'MenuController@create']);
 
@@ -54,4 +56,12 @@ $router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($ro
     $router->get('menu/{id}', ['uses' => 'MenuController@show']);
 
     $router->put('menu/{id}', ['uses' => 'MenuController@update']);
+
+    //---------------------------------------------------------
+
+    $router->get('order', ['uses' => 'OrderController@index']);
+
+    $router->put('order/{id}', ['uses' => 'OrderController@update']);
+
+    $router->get('order/{a}/{b}', ['uses' => 'OrderController@show']);
 });
