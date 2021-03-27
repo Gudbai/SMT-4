@@ -18,13 +18,12 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('api/register', ['uses' => 'LoginController@register']);
+$router->post('api/login', ['uses' => 'LoginController@login']);
+$router->get('api/kategori', ['uses' => 'KategoriController@index']);
 
-$router->get('api/login', ['uses' => 'LoginController@login']);
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
 
-$router->get('kategori', ['uses' => 'KategoriController@index']);
 
-$router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($router) {
-    
     $router->get('kategori/{id}', ['uses' => 'KategoriController@show']);
 
     $router->delete('kategori/{id}', ['uses' => 'KategoriController@destroy']);
@@ -33,7 +32,7 @@ $router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($ro
 
     $router->post('kategori', ['uses' => 'KategoriController@create']);
 
-    //---------------------------------------------------------
+    //----------------------------------------------------------------------
 
     $router->get('pelanggan', ['uses' => 'PelangganController@index']);
 
@@ -44,9 +43,9 @@ $router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($ro
     $router->delete('pelanggan/{id}', ['uses' => 'PelangganController@destroy']);
 
     $router->put('pelanggan/{id}', ['uses' => 'PelangganController@update']);
-    
-    //---------------------------------------------------------
 
+    //----------------------------------------------------------------------
+    
     $router->post('menu', ['uses' => 'MenuController@create']);
 
     $router->get('menu', ['uses' => 'MenuController@index']);
@@ -55,13 +54,23 @@ $router->group( ['prefix' => 'api', 'middleware' => 'user'], function() use ($ro
 
     $router->get('menu/{id}', ['uses' => 'MenuController@show']);
 
-    $router->put('menu/{id}', ['uses' => 'MenuController@update']);
+    $router->post('menu/{id}', ['uses' => 'MenuController@update']);
 
-    //---------------------------------------------------------
+    //----------------------------------------------------------------------
 
     $router->get('order', ['uses' => 'OrderController@index']);
 
     $router->put('order/{id}', ['uses' => 'OrderController@update']);
 
     $router->get('order/{a}/{b}', ['uses' => 'OrderController@show']);
+
+    //----------------------------------------------------------------------
+
+    $router->get('detail/{a}/{b}', ['uses' => 'DetailController@show']);
+
+    //----------------------------------------------------------------------
+
+    $router->get('user', ['uses' => 'LoginController@index']);
+
+    $router->put('user/{id}', ['uses' => 'LoginController@update']);
 });

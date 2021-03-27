@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Detail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DetailController extends Controller
 {
@@ -44,9 +45,20 @@ class DetailController extends Controller
      * @param  \App\Models\Detail  $detail
      * @return \Illuminate\Http\Response
      */
-    public function show(Detail $detail)
+    public function show($a, $b)
     {
-        //
+        $data = DB::table('details')
+            ->join('orders', 'details.idorder', '=', 'orders.idorder')
+            ->join('menus', 'menus.idmenu', '=', 'details.idmenu')
+            ->join('pelanggans', 'pelanggans.idpelanggan', '=', 'orders.idpelanggan')
+            ->join('kategoris', 'kategoris.idkategori', '=', 'menus.idkategori')
+            ->select('orders.*', 'details.*', 'menus.*', 'pelanggans.*', 'kategoris.*')
+            ->where('tglorder', '>=', $a)
+            ->where('tglorder', '<=', $b)
+            ->orderBy('orders.tglorder', 'asc')
+            ->get();
+
+        return response()->json($data);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use Illuminate\Http\Client\ResponseSequence;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,19 +11,20 @@ class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     *  Pepega test
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         //
-        // $data = Menu::all();
+
+        //$data = Menu::all();
 
         $data = DB::table('menus')
-        ->join('kategoris', 'kategoris.idkategori', '=', 'menus.idkategori')
-        ->select('menus.*', 'kategoris.kategori')
-        ->orderBy('menus.menu', 'asc')
-        ->get();
+            ->join('kategoris', 'kategoris.idkategori', '=', 'menus.idkategori')
+            ->select('menus.*', 'kategoris.kategori')
+            ->orderBy('menus.menu', 'asc')
+            ->get();
 
         return response()->json($data);
     }
@@ -35,6 +37,7 @@ class MenuController extends Controller
     public function create(Request $request)
     {
         //
+
         $this->validate($request, [
             'idkategori' => 'required | numeric',
             'menu' => 'required | unique:menus',
@@ -48,7 +51,7 @@ class MenuController extends Controller
         $data = [
             'idkategori' => $request->input('idkategori'),
             'menu' => $request->input('menu'),
-            'gambar' => url('upload/'.$gambar),
+            'gambar' => url('upload/' . $gambar),
             'harga' => $request->input('harga')
         ];
 
@@ -56,7 +59,7 @@ class MenuController extends Controller
 
         if ($menu) {
             return response()->json([
-                'pesan' => 'Data sudah disimpan'
+                'pesan' => 'data sudah disimpan'
             ]);
         }
     }
@@ -81,11 +84,10 @@ class MenuController extends Controller
     public function show($id)
     {
         $data = DB::table('menus')
-        ->join('kategoris', 'kategoris.idkategori', '=', 'menus.idkategori')
-        ->select('menus.*', 'kategoris.kategori')
-        ->where('idmenu', '=', $id)
-        ->get();
-    
+            ->join('kategoris', 'kategoris.idkategori', '=', 'menus.idkategori')
+            ->select('menus.*', 'kategoris.kategori')
+            ->where('idmenu', '=', $id)
+            ->get();
         return response()->json($data);
     }
 
@@ -121,7 +123,7 @@ class MenuController extends Controller
             $data = [
                 'idkategori' => $request->input('idkategori'),
                 'menu' => $request->input('menu'),
-                'gambar' => url('upload/'.$gambar),
+                'gambar' => url('upload/' . $gambar),
                 'harga' => $request->input('harga')
             ];
         } else {
@@ -131,12 +133,13 @@ class MenuController extends Controller
                 'harga' => $request->input('harga')
             ];
         }
-        
-        $menu = Menu::where('idmenu', $id)->update($data);
 
+        //return response()->json($data);
+
+        $menu = Menu::where('idmenu', $id)->update($data);
         if ($menu) {
             return response()->json([
-                'pesan' => "Data sudah diubah!"
+                'pesan' => 'data sudah diubah'
             ]);
         }
     }
@@ -153,7 +156,7 @@ class MenuController extends Controller
 
         if ($menu) {
             return response()->json([
-                'pesan' => "Data sudah dihapus"
+                'pesan' => 'data sudah dihapus'
             ]);
         }
     }

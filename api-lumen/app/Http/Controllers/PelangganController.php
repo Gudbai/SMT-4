@@ -14,6 +14,7 @@ class PelangganController extends Controller
      */
     public function index()
     {
+        //
         $data = Pelanggan::all();
 
         return response()->json($data);
@@ -26,8 +27,6 @@ class PelangganController extends Controller
      */
     public function create(Request $request)
     {
-        //
-
         $this->validate($request, [
             'pelanggan' => 'required',
             'alamat' => 'required',
@@ -35,14 +34,13 @@ class PelangganController extends Controller
         ]);
 
         $pelanggan = Pelanggan::create($request->all());
-        
+
         if ($pelanggan) {
             return response()->json([
-                'pesan' => 'Data sudah dimasukkan',
+                'pesan' => 'data sudah dimasukkan',
                 'data' => $pelanggan
             ]);
         }
-        
     }
 
     /**
@@ -64,8 +62,8 @@ class PelangganController extends Controller
      */
     public function show($id)
     {
+        //
         $data = Pelanggan::where('idpelanggan', $id)->get();
-
         return response()->json($data);
     }
 
@@ -90,11 +88,11 @@ class PelangganController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $pelanggan = Pelanggan::where('idpelanggan', 'id')->update($request->all());
-        
+        $pelanggan = Pelanggan::where('idpelanggan', $id)->update($request->all());
+
         if ($pelanggan) {
             return response()->json([
-                'pesan' => 'Data sudah diupdate',
+                'pesan' => 'data sudah di update',
                 'status' => 201
             ]);
         }
@@ -108,13 +106,11 @@ class PelangganController extends Controller
      */
     public function destroy($id)
     {
-        //
-
         $pelanggan = Pelanggan::where('idpelanggan', $id)->delete();
 
         if ($pelanggan) {
             return response()->json([
-                'pesan' => 'Data sudah dihapus',
+                'pesan' => 'data sudah dihapus',
                 'data' => $pelanggan
             ]);
         }

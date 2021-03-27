@@ -16,10 +16,12 @@ class OrderController extends Controller
     public function index()
     {
         $data = DB::table('orders')
-        ->join('pelanggans', 'pelanggans.idpelanggan', '=', 'orders.idpelanggan')
-        ->select('orders.*', 'pelanggans.*')
-        ->orderBy('orders.status', 'asc')
-        ->get();
+            ->join('pelanggans', 'pelanggans.idpelanggan', '=', 'orders.idpelanggan')
+            ->select('orders.*', 'pelanggans.*')
+            ->orderBy('orders.status', 'asc')
+            ->get();
+
+        return response()->json($data);
     }
 
     /**
@@ -51,18 +53,13 @@ class OrderController extends Controller
      */
     public function show($a, $b)
     {
-        // $order = Order::where('tglorder', '>=', $a)
-        // ->where('tglorder', '<=', $b)
-        // ->orderBy('orders.status', 'asc')
-        // ->get();
-
         $data = DB::table('orders')
-        ->join('pelanggans', 'pelanggans.idpelanggan', '=', 'orders.idpelanggan')
-        ->select('orders.*', 'pelanggans.*')
-        ->where('tglorder', '>=', $a)
-        ->where('tglorder', '<=', $b)
-        ->orderBy('orders.status', 'asc')
-        ->get();
+            ->join('pelanggans', 'pelanggans.idpelanggan', '=', 'orders.idpelanggan')
+            ->select('orders.*', 'pelanggans.*')
+            ->where('tglorder', '>=', $a)
+            ->where('tglorder', '<=', $b)
+            ->orderBy('orders.status', 'asc')
+            ->get();
 
         return response()->json($data);
     }
@@ -89,7 +86,7 @@ class OrderController extends Controller
     {
         $this->validate($request, [
             'bayar' => 'required | numeric',
-            'kembali' => 'required | numeric',
+            'kembali' => 'required| numeric',
             'status' => 'required | numeric'
         ]);
 
@@ -100,10 +97,9 @@ class OrderController extends Controller
         ];
 
         $order = Order::where('idorder', $id)->update($data);
-
         if ($order) {
             return response()->json([
-                'pesan' => "Pesanan sudah dibayar!"
+                'pesan' => ' Pesanan Sudah dibayar'
             ]);
         }
     }

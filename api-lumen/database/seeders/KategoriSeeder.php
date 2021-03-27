@@ -16,15 +16,14 @@ class KategoriSeeder extends Seeder
     public function run()
     {
         //
-
         $faker = Faker::create();
 
-        for ($i=0; $i < 100; $i++) { 
+        for ($i = 0; $i < 100; $i++) {
             $data = [
-                'kategori' => $faker->name,
-                'keterangan' => $faker->text
+                'kategori' => $faker->city,
+                'keterangan' => $faker->text,
             ];
-    
+
             Kategori::create($data);
         }
     }

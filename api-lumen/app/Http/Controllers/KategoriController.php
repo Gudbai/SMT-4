@@ -14,6 +14,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
+
         $data = Kategori::all();
 
         return response()->json($data);
@@ -26,8 +27,6 @@ class KategoriController extends Controller
      */
     public function create(Request $request)
     {
-        //
-
         $this->validate($request, [
             'kategori' => 'required | unique:kategoris',
             'keterangan' => 'required'
@@ -37,7 +36,7 @@ class KategoriController extends Controller
 
         if ($kategori) {
             return response()->json([
-                'pesan' => 'Data sudah disimpan'
+                'pesan' => 'data sudah disimpan'
             ]);
         }
     }
@@ -56,23 +55,22 @@ class KategoriController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int \App\Models\Kategori $kategori
+     * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $data = Kategori::where('idkategori', $id)->get();
-
         return response()->json($data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int \App\Models\Kategori $kategori
+     * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kategori $kategori)
     {
         //
     }
@@ -81,17 +79,16 @@ class KategoriController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  \App\Models\Kategori $kategori
+     * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         //
-        $kategori = Kategori::where('idkategori', 'id')->update($request->all());
-
+        $kategori = Kategori::where('idkategori', $id)->update($request->all());
         if ($kategori) {
             return response()->json([
-                'pesan' => "Data sudah diubah!"
+                'pesan' => 'data sudah diubah'
             ]);
         }
     }
@@ -99,18 +96,16 @@ class KategoriController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  \App\Models\Kategori $kategori
+     * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
-
         $kategori = Kategori::where('idkategori', $id)->delete();
 
         if ($kategori) {
             return response()->json([
-                'pesan' => "Data sudah dihapus"
+                'pesan' => 'data sudah dihapus'
             ]);
         }
     }
