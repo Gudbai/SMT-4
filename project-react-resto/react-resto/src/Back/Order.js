@@ -13,7 +13,7 @@ const Order = () => {
 	const [pelanggan, setPelanggan] = useState("");
 	const [idorder, setIdorder] = useState("");
 
-	const [awal, setAwal] = useState("2021-03-01");
+	const [awal, setAwal] = useState("2021-03-1");
 	const [akhir, setAkhir] = useState(today);
 
 	const { register, handleSubmit, setValue, errors } = useForm();
@@ -23,9 +23,9 @@ const Order = () => {
 		setAkhir(data.takhir);
 	}
 
+	const [isi] = useGet(`/order/${awal}/${akhir}`);
 	function filterData(id) {
-		const data = isi.filter( (val) => (val.idorder === id) );
-		
+		const data = isi.filter((val) => val.idorder === id);
 		setPelanggan(data[0].pelanggan);
 		setTotal(data[0].total);
 		setIdorder(data[0].idorder);
@@ -38,16 +38,15 @@ const Order = () => {
 
 	async function simpan(data) {
 		let hasil = {
-			bayar:data.bayar,
-			kembali:data.bayar - data.total,
-			status: 1
+			bayar: data.bayar,
+			kembali: data.bayar - data.total,
+			status: 1,
 		};
 		const res = await link.put("/order/" + idorder, hasil);
 		setMopen(false);
 	}
 
-	const [isi] = useGet(`/order/${awal}/${akhir}`);
-
+	let no = 1;
 	return (
 		<div>
 			<Modal
@@ -70,20 +69,17 @@ const Order = () => {
 				}}
 			>
 				<div className="row">
-					<h2>Pembayaran Order {pelanggan}</h2>
+					<h2>Pembayaran {pelanggan}</h2>
 				</div>
 				<div className="row">
-					<div className="col-4">
+					<div className="col">
 						<form onSubmit={handleSubmit(simpan)}>
 							<div className="mb-3">
-								<label
-									htmlFor="total"
-									className="form-label"
-								>
+								<label htmlFor="total" className="form-label">
 									Total
 								</label>
 								<input
-									type="text"
+									type="number"
 									className="form-control"
 									name="total"
 									placeholder="total"
@@ -91,34 +87,34 @@ const Order = () => {
 								/>
 							</div>
 							<div className="mb-3">
-								<label
-									htmlFor="bayar"
-									className="form-label"
-								>
+								<label htmlFor="bayar" className="form-label">
 									Bayar
 								</label>
 								<input
-									type="text"
+									type="number"
 									className="form-control"
 									name="bayar"
 									placeholder="bayar"
-									ref={register({required:true, min:total})}
+									ref={register({
+										required: true,
+										min: total,
+									})}
 								/>
-								{errors.bayar && "Pembayaran Kurang!"}
+								{errors.bayar && "Dilarang Ngutang"}
 							</div>
 							<div className="mb-3">
-                                <input
-									type="submit"
-									className="btn btn-danger mr-2"
-									name="batal"
-                                    value="Batal"
-                                    onClick={() => setMopen(false)}
-								/>
 								<input
 									type="submit"
 									className="btn btn-primary"
 									name="submit"
-                                    value="Bayar"
+									value="Bayar"
+								/>
+								<input
+									type="submit"
+									className="btn btn-danger ml-3"
+									name="batal"
+									value="batal"
+									onClick={() => setMopen(false)}
 								/>
 							</div>
 						</form>
@@ -134,7 +130,7 @@ const Order = () => {
 				<form onSubmit={handleSubmit(cari)}>
 					<div className="mb-3">
 						<label htmlFor="tawal" className="form-label">
-							Tanggal Awal
+							Tanggal awal
 						</label>
 						<input
 							type="date"
@@ -145,7 +141,7 @@ const Order = () => {
 					</div>
 					<div className="mb-3">
 						<label htmlFor="takhir" className="form-label">
-							Tanggal Akhir
+							Tanggal akhir
 						</label>
 						<input
 							type="date"
@@ -157,7 +153,7 @@ const Order = () => {
 					<div className="mb-3">
 						<input
 							type="submit"
-							className="btn btn-primary"
+							className="fbtn btn-primary"
 							name="submit"
 						/>
 					</div>
@@ -169,8 +165,9 @@ const Order = () => {
 						<thead>
 							<tr>
 								<th>No</th>
+								<th>Faktur</th>
 								<th>Pelanggan</th>
-								<th>Tanggal Order</th>
+								<th>Tanggal</th>
 								<th>Total</th>
 								<th>Bayar</th>
 								<th>Kembali</th>
@@ -181,6 +178,7 @@ const Order = () => {
 							{isi.map((val, index) => (
 								<tr key={index}>
 									<td>{no++}</td>
+									<td>{val.idorder}</td>
 									<td>{val.pelanggan}</td>
 									<td>{val.tglorder}</td>
 									<td>{val.total}</td>
@@ -189,8 +187,10 @@ const Order = () => {
 									<td>
 										{val.status === 0 ? (
 											<button
-												className="btn btn-danger"
-												onClick={() => filterData(val.idorder)}
+												className="btn btn-dark"
+												onClick={() =>
+													filterData(val.idorder)
+												}
 											>
 												Belum Bayar
 											</button>

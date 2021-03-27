@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { link } from "../Axios/link";
+import { useState, useEffect } from 'react';
+import { link } from '../Axios/link';
 
-const useGet = () => {
+const useGet = (url) => {
     const [isi, setIsi] = useState([]);
 
     useEffect(() => {
+
         let ambil = true;
-        async function fetchData() {
+        async function fetchdata() {
             const res = await link.get(url);
             if (ambil) {
                 setIsi(res.data);
             }
         }
-        fetchData();
+        fetchdata()
         return () => {
             ambil = false;
         };
     }, [isi]);
 
     return [isi];
-};
+}
 
 export default useGet;
