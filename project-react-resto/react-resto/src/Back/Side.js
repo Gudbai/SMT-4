@@ -13,17 +13,37 @@ const Side = () => {
   </div>
                 <ul className="list-group list-group-flush">
                     <Link to={`${url}/kategori`}>
-                        <li className="list-group-item">Kategori</li></Link>
+                        {
+                            (sessionStorage.getItem('level') === 'admin') ? (<li className="list-group-item">Kategori</li>) : ""
+                        }
+                    </Link>
+
                     <Link to={`${url}/menu`}>
-                        <li className="list-group-item">Menu</li></Link>
+                        {
+                            (sessionStorage.getItem('level') === 'admin') ? (<li className="list-group-item">Menu</li>) : ""
+                        }
+                    </Link>
+
                     <Link to={`${url}/pelanggan`}>
-                        <li className="list-group-item">Pelanggan</li></Link>
+                        {
+                            (sessionStorage.getItem('level') === 'admin') ? (<li className="list-group-item">Pelanggan</li>) : ""
+                        }
+                    </Link>
                     <Link to={`${url}/order`}>
-                        <li className="list-group-item">Order</li></Link>
+                        {
+                            ((sessionStorage.getItem('level') === 'admin') || (sessionStorage.getItem('level') === 'kasir')) ? (<li className="list-group-item">Order</li>) : ""
+                        }
+                    </Link>
                     <Link to={`${url}/detail`}>
-                        <li className="list-group-item">Order Detail</li></Link>
+                        {
+                            ((sessionStorage.getItem('level') === 'admin') || (sessionStorage.getItem('level') === 'kasir') || (sessionStorage.getItem('level') === 'koki')) ? (<li className="list-group-item">Order Detail</li>) : ""
+                        }
+                    </Link>
                     <Link to={`${url}/user`}>
-                        <li className="list-group-item">User Admin</li></Link>
+                        {
+                            (sessionStorage.getItem('level') === 'admin') ? (<li className="list-group-item">Admin</li>) : ""
+                        }
+                    </Link>
                 </ul>
             </div>
 

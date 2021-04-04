@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-const url = "http://localhost:3000/api";
-let token = "66JEOajF2u8OhxaAldNEx2QriM4VDACvNIcgsFgY";
+const url = "http://localhost:8000/api";
+let token = sessionStorage.getItem('token');
 
 
 export const link = axios.create({

@@ -1,18 +1,17 @@
 export function get() {
-    console.log('get');
+    console.log("get");
 }
 
-function show() {
-    console.log('show');
+export function show() {
+    console.log("show");
 }
 
 export const siswa = [
     {
         nama: 'siti',
-        kelas: 'XI RPL'
-    },
-    {
+        kelas: 'XI-RPL'
+    }, {
         nama: 'budi',
-        kelas: 'XII RPL'
+        kelas: 'XII-RPL'
     }
-]
+];

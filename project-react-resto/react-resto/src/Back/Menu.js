@@ -44,7 +44,9 @@ const Menu = () => {
             link.post('/menu/' + idmenu, formData).then(res => setPesan(res.data.pesan));
             setPilihan(true);
         }
-        
+
+
+
         reset();
     }
 
